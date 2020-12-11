@@ -1,0 +1,626 @@
+// font mixin
+@mixin font($font_name, $file_name, $weight, $style) 
+  @font-face 
+    font-family: $font_name
+    font-display: swap
+    src: url("../fonts/"+$file_name+".woff") format("woff"), url("../fonts/"+$file_name+".woff2") format("woff2")
+    font-weight: $weight
+    font-style: $style
+
+
+// imports
+@import _reset
+@import _fonts
+
+
+// variables
+$main-color:       #ffffff
+$active-color:     #6EBBD3
+$default-color:    #000000
+$sale-color:       #E52D2D
+$product-bg-color: #F3F3F3
+$footer-color:     #1F2021
+
+$info-fz:    12px
+$stuff-fz:   14px
+$data-fz:    16px
+$common-fz:  18px
+$price-fz:   24px
+$subscr-fz:  28px
+$counter-fz: 38px
+$appeal-fz:  48px
+
+
+// mixins
+@mixin thin
+  font-family: 'Montserrat-ExtraLight', sans-serif
+
+@mixin regular
+  font-family: 'Montserrat-Light', sans-serif
+  
+@mixin bold
+  font-family: 'Montserrat-SemiBold', sans-serif
+
+
+
+// basic settings & common elements
+body
+  @include regular()
+  background: #ffffff
+
+.container
+  width: 1180px
+  margin: 0 auto  
+
+.my-favorite
+  background: url('../img/like-a.png') no-repeat
+
+
+input[type=text], input:focus
+  outline: none
+  border: none
+
+button
+	border: none
+	outline: none
+	cursor: pointer
+
+button:disabled
+  cursor: default
+
+
+// header
+.header 
+  padding: 40px 0 75px
+  background: url('../img/header/header-bg.png') 0% 0% no-repeat
+  background-size: cover 
+  color: $main-color
+  user-select: none
+  &__burger
+    display: none
+  &__nav
+    display: flex
+    align-items: center
+  &__menu
+    margin-left: 115px
+    ul
+      width: 400px
+      list-style-type: none
+      display: flex
+      justify-content: space-between
+      a
+        text-decoration: none
+        color: $main-color
+        transition: color 0.3s ease
+        &:hover
+          color: $active-color
+  &__phone
+    text-align: right
+    margin-left: 360px
+    a
+      display: block
+      text-decoration: none
+      @include bold()
+      font-size: $price-fz
+      color: $main-color
+      transition: color 0.3s ease
+      &:hover
+        color: $active-color
+    p
+      font-size: $common-fz
+      margin-top: 10px
+  &__cat-counter
+    margin-top: 60px
+    @include bold()
+    font-size: $counter-fz
+// header
+
+
+// main
+.main
+  user-select: none
+  padding: 40px 0 80px
+  background: #ffffff
+  & .sort
+    &__choose-sort
+      @include bold()
+      font-size: $common-fz
+      margin-right: 50px
+    &__price-sort
+      font-size: $common-fz 
+      cursor: pointer 
+      transition: color .3s ease
+      &:hover
+        color: $active-color
+      &::after
+        content: 'v'
+        margin-left: 15px
+        font-weight: bold
+    &__age-sort
+      font-size: $common-fz 
+      margin-left: 85px
+      cursor: pointer 
+      transition: color .3s ease
+      &:hover
+        color: $active-color
+      &::after
+        content: 'v'
+        margin-left: 15px
+        font-weight: bold
+  & .products
+    position: relative
+    margin-top: 40px
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+    grid-template-rows: 1fr
+    grid-gap: 20px
+    & .product
+      width: 380px
+      background: $product-bg-color
+      border-radius: 0px 0px 10px 10px 
+      &__image
+        width: 380px
+        height: 264px
+        background: url('../img/cats/cat1.png')
+      &__data
+        padding: 35px 0 35px 30px
+        font-size: $info-fz
+        h3
+          margin-bottom: 30px
+          @include bold()
+          font-size: $price-fz
+        div
+          padding-left: 19px
+          margin-bottom: 30px
+          border-left: 4px solid $active-color
+          table
+            width: 275px
+            td
+              &.td-data
+                padding-bottom: 7px
+              &.bold-data
+                @include bold()
+        p
+          @include bold()
+          font-size: $price-fz
+      &__favorite
+        transform: translate(300px,30px)
+        background: url('../img/like-d.png') center center no-repeat
+        width: 46px
+        height: 46px
+        cursor: pointer
+        transition: background 0.1s linear 0s  
+        &:hover
+          background: url('../img/like-a.png') center center no-repeat
+      &__sale
+        background: $sale-color
+        color: $main-color
+        border-radius: 10px
+        width: 78px
+        height: 40px
+        line-height: 40px
+        text-align: center
+        transform: translate(35px, -15px)
+      button
+        border: none
+        border-radius: 0px 0px 8px 8px
+        background: $active-color
+        color: $main-color
+        width: 100%
+        height: 65px
+        @include bold()
+        font-size: $data-fz
+        text-align: center
+        transition: background 0.3s ease 0s
+        &:hover
+          background: darken($active-color, 5%)
+        &.isSold
+          background: $footer-color 
+  &__show-more-btn
+    display: block
+    background: #ffffff
+    border: 1px solid #CACACA
+    border-radius: 10px
+    font-size: $stuff-fz
+    padding: 25px 130px 
+    margin: 65px auto 0
+    text-align: center
+    transition: box-shadow .3s ease
+    &:hover
+      box-shadow: 0 0 10px rgba(110,187,211,0.3)  
+// main
+
+
+// footer
+.footer
+  user-select: none
+  padding: 90px 0
+  background: $footer-color
+  color: $main-color
+  &__content
+    display: flex
+    justify-content: space-between
+  &__appeal
+    h2
+      @include bold
+      font-size: $appeal-fz
+      margin-bottom: 38px
+    p
+      font-size: $subscr-fz
+  &__form
+    input[type=email]
+      border: none
+      border-radius: 10px
+      width: 300px
+      height: 65px
+      line-height: 65px
+      padding-left: 35px
+      &::placeholder
+        color: black
+    button
+      border: none
+      border-radius: 10px
+      width: 250px
+      height: 65px
+      line-height: 65px
+      background: $active-color
+      color: $main-color
+      text-align: center
+      @include bold()
+      font-size: $stuff-fz
+      transition: background .3s ease
+      &:hover
+        background: darken($active-color, 5%)
+    label
+      margin-top: 20px
+      margin-left: 1px
+      display: flex
+      align-self: center
+      user-select: none
+      input[type=checkbox]
+        display: none
+        
+        &:checked + span::before
+          opacity: 1
+      .fake
+        position: relative
+        display: inline-block
+        background: $active-color 
+        width: 20px
+        height: 20px
+        border-radius: 10%
+        border: 1px solid #000
+        margin-right: 60px
+        &::before
+          content: url('../img/check-mark.png')
+          position: absolute
+          top: 10%
+          left: 26%
+          display: block
+          width: 30px
+          height: 30px
+          opacity: 0
+          transition: opacity .3s ease
+      .text
+        padding-top: 5px
+// footer
+
+  
+// up button
+.up-btn
+  position: fixed
+  cursor: pointer
+  display: block
+  top: 90%  
+  right: 5%  
+  width: 45px
+  height: 45px
+  background: $active-color
+  width: 45px
+  transition: all .3s ease 0s
+  opacity: 1
+  &::before
+    content: url('../img/arrow.png')
+    display: block
+    position: absolute
+    top: 30%
+    left: 30% 
+  &.disappeared
+    opacity: 0
+// up button
+
+  
+.notification
+  position: fixed
+  top: 75%
+  right: -100%
+  width: 200px
+  height: 50px
+  line-height: 50px
+  padding-left: 20px
+  background: $product-bg-color
+  border-left: 5px solid $active-color 
+  border-radius: 5px 0 0 5px
+  transition: all .5s ease 0s
+  &.liked
+    right: 0px
+  img
+    position: absolute
+    top: 10px
+    left: 150px
+    width: 30px
+    height: 30px
+
+
+// media
+// breakpoints:
+// >=  1200
+// >=  992
+// >=  768
+// >=  576
+// <   576
+
+// 992 - 1199
+@media screen and (max-width:1199px)
+  .container
+    width: 930px
+  .header
+    &__phone
+      margin-left: 120px
+  .main
+    .products
+      grid-template-columns: 1fr 1fr 
+      grid-template-rows: 1fr 
+      grid-gap: 30px
+      justify-items: center
+  .footer
+    &__content
+      margin: 0 auto
+      width: 920px
+      justify-content: space-between
+    &__form
+      input[type=email]
+        width: 240px
+        line-height: 45px
+      button
+        width: 200px
+        line-height: 45px
+
+
+// 991 - 769
+@media screen and (max-width:991px)
+  .container
+    width: 700px
+  .header
+    &__menu
+      margin-left: 60px
+      ul
+        width: 300px 
+    &__phone
+      margin-left: 80px
+      a
+        font-size: 20px
+    &__cat-counter
+      font-size: 30px
+  .main  
+    .products
+      .product
+        width: 290px
+        &__image
+          width: 290px
+          height: 200px
+        &__data
+          padding: 25px 0 25px 20px
+          h3
+            margin-bottom: 20px
+          div
+            padding-left: 15px
+            margin-bottom: 20px
+            table
+              width: 230px
+              td
+                &.td-data
+                  padding-bottom: 5px
+        &__favorite
+          transform: translate(210px,30px)
+          width: 46px
+          height: 46px
+        &__sale
+          background: $sale-color
+          color: $main-color
+          border-radius: 10px
+          width: 74px
+          height: 35px
+          line-height: 35px
+          transform: translate(30px, -15px)
+  .footer
+    &__content
+      margin: 0 auto
+      width: 700px
+      justify-content: space-between
+    &__form
+      input
+        display: block
+        width: 100px
+        margin-bottom: 20px 
+
+
+// 768 - 576 
+@media screen and (max-width:767px)
+  body.lock
+    overflow: hidden
+  .container
+    width: 560px
+  .header
+    background: none
+    padding: 0 0 75px
+    &__default
+      display: none
+    &__burger
+      display: block 
+      position: fixed
+      width: 100%
+      top: -1px
+      left: 0
+      z-index: 9999
+      &-logo
+        flex: 0 0 40px
+        position: relative
+        z-index: 3
+        img
+          max-width: 100%
+      &::before
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background: $footer-color
+        z-index: 2
+    &__burger-body
+      position: relative
+      height: 80px
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 0 15px
+    &__list
+      display: block
+      position: relative
+      z-index: 2
+      li
+        list-style-type: none
+        margin-bottom: 20px
+    &__link
+      color: #ffffff
+      text-transform: uppercase
+      font-size: 24px
+      text-decoration: none
+      &:hover
+        color: $active-color
+    .burger
+      display: block
+      position: relative
+      z-index: 3  
+      width: 30px
+      height: 20px
+      &.active::before
+        transform:  rotate(45deg)
+        top: 9px
+      &.active::after
+        transform: rotate(-45deg)
+        bottom: 9px
+      &.active span
+        transform: scale(0)
+      &::before,
+      &::after
+        content: ''
+        background: #ffffff
+        position: absolute
+        width: 100%
+        height: 2px
+        left: 0
+        transition: all .3s ease 0s
+      &::before
+        top: 0
+      &::after
+        bottom: 0
+      span
+        position: absolute 
+        background: #fff
+        left: 0
+        width: 100%
+        height: 2px
+        top: 9px
+        transition: all .3s ease 0s
+    &__burger-menu
+      overflow: auto
+      position: fixed
+      top: -200%
+      left: 0
+      width: 100%
+      height: 100%
+      background: lighten($footer-color, 5%)
+      padding: 70px 10px 20px 10px 
+      transition: all .3s ease 0s
+      &.active
+        top: 30px
+  .main
+    .sort
+      margin-left: 7px
+      &__choose-sort
+        margin-right: 35px
+      &__age-sort
+        margin-left: 35px  
+    .products
+      grid-gap: 10px
+      .product
+        width: 260px
+        &__image
+          width: 260px
+          height: 180px
+        &__data
+          padding: 25px 0 25px 20px
+          h3
+            margin-bottom: 20px
+          div
+            padding-left: 8px
+            margin-bottom: 20px
+            table
+              width: 210px
+              td
+                &.td-data
+                  padding-bottom: 5px
+        &__favorite
+          transform: translate(195px,25px)
+        &__sale
+          background: $sale-color
+          color: $main-color
+          border-radius: 10px
+          width: 70px
+          height: 32px
+          line-height: 32px
+          transform: translate(30px, -15px)
+        button
+          height: 45px
+  .footer
+    &__content
+      width: 530px
+    &__form
+      input[type=email]
+        width: 200px
+        height: 45px
+        line-height: 45px
+      button
+        width: 150px
+        height: 45px
+        line-height: 45px
+      label
+        .fake
+          margin-right: 20px
+    &__appeal
+      h2
+        font-size: 30px
+        margin-bottom: 20px
+      p
+        font-size: 20px
+
+
+// <576 
+@media screen and (max-width:575px)
+  .container
+    width: 300px
+  .main
+    .products
+      grid-gap: 20px
+      grid-template-columns: 1fr 
+      grid-template-columns: 1fr 
+    &__show-more-btn
+      padding: 25px 50px 
+  .footer
+    padding: 45px 0   
+    &__content
+      width: 300px  
+    &__appeal
+      display: none
